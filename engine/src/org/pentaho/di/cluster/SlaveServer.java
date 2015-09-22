@@ -143,6 +143,8 @@ public class SlaveServer extends ChangedFlag implements Cloneable, SharedObjectI
 
   private String hostname;
 
+  private String ext_hostname;
+  
   private String port;
 
   private String webAppName;
@@ -195,9 +197,15 @@ public class SlaveServer extends ChangedFlag implements Cloneable, SharedObjectI
 
   public SlaveServer( String name, String hostname, String port, String username, String password,
                       String proxyHostname, String proxyPort, String nonProxyHosts, boolean master, boolean ssl ) {
+    this( name, hostname, null, port, username, password, proxyHostname, proxyPort, nonProxyHosts, master, false );
+  }
+  
+  public SlaveServer( String name, String hostname, String ext_hostname, String port, String username, String password,
+    String proxyHostname, String proxyPort, String nonProxyHosts, boolean master, boolean ssl ) {
     this();
     this.name = name;
     this.hostname = hostname;
+    this.ext_hostname = ext_hostname;
     this.port = port;
     this.username = username;
     this.password = password;
@@ -215,6 +223,7 @@ public class SlaveServer extends ChangedFlag implements Cloneable, SharedObjectI
     this();
     this.name = XMLHandler.getTagValue( slaveNode, "name" );
     this.hostname = XMLHandler.getTagValue( slaveNode, "hostname" );
+    this.ext_hostname = XMLHandler.getTagValue( slaveNode, "ext_hostname" );
     this.port = XMLHandler.getTagValue( slaveNode, "port" );
     this.webAppName = XMLHandler.getTagValue( slaveNode, "webAppName" );
     this.username = XMLHandler.getTagValue( slaveNode, "username" );
@@ -248,6 +257,7 @@ public class SlaveServer extends ChangedFlag implements Cloneable, SharedObjectI
 
     xml.append( XMLHandler.addTagValue( "name", name, false ) );
     xml.append( XMLHandler.addTagValue( "hostname", hostname, false ) );
+    xml.append( XMLHandler.addTagValue( "ext_hostname", ext_hostname, false ) );
     xml.append( XMLHandler.addTagValue( "port", port, false ) );
     xml.append( XMLHandler.addTagValue( "webAppName", webAppName, false ) );
     xml.append( XMLHandler.addTagValue( "username", username, false ) );
@@ -275,6 +285,7 @@ public class SlaveServer extends ChangedFlag implements Cloneable, SharedObjectI
   public void replaceMeta( SlaveServer slaveServer ) {
     this.name = slaveServer.name;
     this.hostname = slaveServer.hostname;
+    this.ext_hostname = slaveServer.ext_hostname;
     this.port = slaveServer.port;
     this.webAppName = slaveServer.webAppName;
     this.username = slaveServer.username;
@@ -322,6 +333,10 @@ public class SlaveServer extends ChangedFlag implements Cloneable, SharedObjectI
     this.hostname = urlString;
   }
 
+  public String getExtHostname() {
+    return ext_hostname;
+  }  
+  
   /**
    * @return the password
    */
@@ -1123,7 +1138,7 @@ public class SlaveServer extends ChangedFlag implements Cloneable, SharedObjectI
   }
 
   public SlaveServer getClient() {
-    String pHostName = getHostname();
+    String pHostName = StringUtils.isEmpty( getExtHostname() ) ? getHostname(): getExtHostname();
     String pPort = getPort();
     String name = MessageFormat.format( "Dynamic slave [{0}:{1}]", pHostName, pPort );
     SlaveServer client = new SlaveServer( name, pHostName, "" + pPort, getUsername(), getPassword() );

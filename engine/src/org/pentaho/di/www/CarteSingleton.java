@@ -95,10 +95,7 @@ public class CarteSingleton {
       // harden this sort of problems.
       //
       if ( config.isReportingToMasters() ) {
-        String hostname = slaveServer.getHostname();
-        final SlaveServer client =
-          new SlaveServer( "Dynamic slave [" + hostname + ":" + port + "]", hostname, "" + port, slaveServer
-            .getUsername(), slaveServer.getPassword() );
+        final SlaveServer client = slaveServer.getClient();
         for ( final SlaveServer master : config.getMasters() ) {
           // Here we use the username/password specified in the slave
           // server section of the configuration.
