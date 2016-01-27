@@ -53,6 +53,7 @@ public class ColumnInfo {
   private boolean readonly;
   private String button_text;
   private boolean hide_negative;
+  private int width = -1;
 
   private ValueMetaInterface valueMeta;
 
@@ -172,6 +173,28 @@ public class ColumnInfo {
     this( colname, coltype, num );
     readonly = ro;
   }
+  
+  /**
+   * Creates a column info class for use with the TableView class.
+   *
+   * @param colname
+   *          The column name
+   * @param coltype
+   *          The column type (see: COLUMN_TYPE_...)
+   * @param num
+   *          true if the column type is numeric. Use setValueType() to specify the type of numeric:
+   *          ValueMetaInterface.TYPE_INTEGER is the default.
+   * @param ro
+   *          true if the column is read-only.
+   *          
+   * @param width
+   *          The column width         
+   */  
+  public ColumnInfo( String colname, int coltype, boolean num, boolean ro, int width ) {
+    this( colname, coltype, num );
+    readonly = ro;
+    this.width = width;
+  }  
 
   /**
    * Creates a column info class for use with the TableView class. The type of column info to be created is :
@@ -220,7 +243,7 @@ public class ColumnInfo {
   public int getType() {
     return type;
   }
-
+  
   public String[] getComboValues() {
     String[] retval = combovals; // Copy structure!
     return retval;
@@ -376,4 +399,7 @@ public class ColumnInfo {
     return this.renderTextVarButtonCallback == null || this.renderTextVarButtonCallback.shouldRenderButton();
   }
   
+  public int getWidth() {
+    return this.width;
+  }
 }
