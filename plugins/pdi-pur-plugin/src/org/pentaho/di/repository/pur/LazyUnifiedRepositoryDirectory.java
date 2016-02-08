@@ -129,6 +129,7 @@ public class LazyUnifiedRepositoryDirectory extends RepositoryDirectory {
         RepositoryRequest repositoryRequest = new RepositoryRequest();
         repositoryRequest.setTypes( RepositoryRequest.FILES_TYPE_FILTER.FILES );
         repositoryRequest.setPath( this.self.getId().toString() );
+        repositoryRequest.setShowHidden( true );
         List<RepositoryFile> children = repository.getChildren( repositoryRequest );
         for ( RepositoryFile child : children ) {
 
@@ -191,6 +192,7 @@ public class LazyUnifiedRepositoryDirectory extends RepositoryDirectory {
     RepositoryRequest repositoryRequest = new RepositoryRequest();
     repositoryRequest.setTypes( RepositoryRequest.FILES_TYPE_FILTER.FOLDERS );
     repositoryRequest.setPath( this.self.getId().toString() );
+    repositoryRequest.setShowHidden( true );
     List<RepositoryFile> children = repository.getChildren( repositoryRequest );
 
 
