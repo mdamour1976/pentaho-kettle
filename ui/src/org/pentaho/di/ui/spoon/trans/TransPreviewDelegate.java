@@ -577,4 +577,16 @@ public class TransPreviewDelegate extends SpoonDelegate implements XulEventHandl
     lastRadio.setSelected( false );
     offRadio.setSelected( true );
   }
+
+  public boolean isDataBufferEmpty( StepMeta stepMeta) {
+    boolean isEmpty = true;
+    if ( previewDataMap != null ) {
+      List<Object[]> rowsData = previewDataMap.get( stepMeta );
+      if ( rowsData != null ) {
+        isEmpty = rowsData.isEmpty();
+      }
+    }
+    return isEmpty;
+  }
+
 }
