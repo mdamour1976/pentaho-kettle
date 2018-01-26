@@ -2,7 +2,7 @@
  *
  * Pentaho Data Integration
  *
- * Copyright (C) 2002-2017 by Hitachi Vantara : http://www.pentaho.com
+ * Copyright (C) 2002-2018 by Hitachi Vantara : http://www.pentaho.com
  *
  *******************************************************************************
  *
@@ -323,9 +323,6 @@ public class GetTransStatusServlet extends BaseHttpServlet implements CartePlugi
         out.println( "<HEAD>" );
         out.println( "<TITLE>"
           + BaseMessages.getString( PKG, "TransStatusServlet.KettleTransStatus" ) + "</TITLE>" );
-        out.println( "<META http-equiv=\"Refresh\" content=\"10;url="
-          + convertContextPath( CONTEXT_PATH ) + "?name=" + URLEncoder.encode( transName, "UTF-8" ) + "&id="
-          + URLEncoder.encode( id, "UTF-8" ) + "\">" );
         out.println( "<META http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" );
         out.println( "</HEAD>" );
         out.println( "<BODY>" );
