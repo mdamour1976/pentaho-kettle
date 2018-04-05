@@ -34,18 +34,14 @@ import org.pentaho.di.junit.rules.RestorePDIEngineEnvironment;
 import org.pentaho.di.trans.steps.loadsave.LoadSaveTester;
 
 public class ChangeFileEncodingMetaTest {
-  @ClassRule public static RestorePDIEngineEnvironment env = new RestorePDIEngineEnvironment();
+  @ClassRule
+  public static RestorePDIEngineEnvironment env = new RestorePDIEngineEnvironment();
 
   @Test
   public void testRoundTrip() throws KettleException {
-    List<String> attributes = Arrays.asList(
-      "filenamefield",
-      "targetfilenamefield",
-      "sourceencoding",
-      "targetencoding",
-      "addsourceresultfilenames",
-      "addtargetresultfilenames",
-      "createparentfolder" );
+    List<String> attributes =
+        Arrays.asList( "filenamefield", "targetfilenamefield", "sourceencoding", "targetencoding",
+          "addsourceresultfilenames", "addtargetresultfilenames", "createparentfolder" );
 
     Map<String, String> getterMap = new HashMap<String, String>();
     getterMap.put( "filenamefield", "getDynamicFilenameField" );
@@ -66,7 +62,7 @@ public class ChangeFileEncodingMetaTest {
     setterMap.put( "createparentfolder", "setCreateParentFolder" );
 
     LoadSaveTester loadSaveTester =
-      new LoadSaveTester( ChangeFileEncodingMeta.class, attributes, getterMap, setterMap );
+        new LoadSaveTester( ChangeFileEncodingMeta.class, attributes, getterMap, setterMap );
     loadSaveTester.testSerialization();
   }
 }
